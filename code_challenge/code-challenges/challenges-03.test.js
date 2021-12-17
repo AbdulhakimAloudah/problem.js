@@ -23,6 +23,11 @@ function lower(str) {
 
 const updateAnimal = (arr, callback) => {
   // Solution code here...
+  const newArr = [];
+  arr.forEach((elem) => {
+    newArr.push(callback(elem));
+  });
+  return newArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -34,8 +39,9 @@ For example: 'Cat' would come before 'apple'
 ------------------------------------------------------------------------------------------------ */
 
 const sortNames = (arr) => {
-  // Solution code here...
+  return arr.sort();
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -46,7 +52,7 @@ HINT: Beware... JS default is "Lexical" ordering.
 ------------------------------------------------------------------------------------------------ */
 
 const sortNumbers = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => a - b);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -58,7 +64,7 @@ HINT: Do it with a custom sort callback, not with using `.reverse()`. ;)
 ------------------------------------------------------------------------------------------------ */
 
 const sortBackwards = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => a - b).reverse();
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -72,8 +78,10 @@ For example, ['Alphabet', 'Zebra', 'alphabet', 'carrot'] is correctly sorted.
 ------------------------------------------------------------------------------------------------ */
 
 const alphabetize = (arr) => {
-  // Solution code here...
+  arr.sort();
+  return arr;
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6
@@ -89,7 +97,7 @@ Here is an example of the input:
 ------------------------------------------------------------------------------------------------ */
 
 const sortByPrice = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => b.price - a.price).reverse();
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -101,7 +109,7 @@ For example, ['Alphabet', 'alphabet', 'carrot', 'Zebra'] is correctly sorted, an
 ------------------------------------------------------------------------------------------------ */
 
 const alphabetizeBetter = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -109,10 +117,14 @@ CHALLENGE 8 - Stretch Goal
 
 Write a function named sortByLength that takes in an array of strings and returns the same array, with the strings sorted by their length, lowest to highest.
 ------------------------------------------------------------------------------------------------ */
+-------------------------------------------------------------------------------------------- */
 
 const sortByLength = (arr) => {
-  // Solution code here...
+
+  return arr.sort((a, b) =>  a.length - b.length );
+
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 9 - Stretch Goal
@@ -123,8 +135,9 @@ For example, [1, 14, 0.2, -281, 54782] is only correctly sorted in that order.
 ------------------------------------------------------------------------------------------------ */
 
 const sortNumbersByLength = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => a.toString().length - b.toString().length);
 };
+
 
 /*-----------------------------------------------------------------------------------------------
 CHALLENGE 10 - Stretch Goal
@@ -145,7 +158,7 @@ const people = [
 ];
 
 const sortPeople = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -159,7 +172,17 @@ If two people have the same full name, the younger one should come first. Do not
 ------------------------------------------------------------------------------------------------ */
 
 const sortPeopleBetter = (arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    if (a.lastName > b.lastName) {
+      return 1;
+    } else if (a.lastName == b.lastName) {
+      if (a.firstName == b.firstName) {
+        return a.age - b.age;
+      }
+      return a.firstName > b.firstName ? 1 : -1;
+    }
+    return -1;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -169,6 +192,7 @@ Write a function named sortMeetingsByDay that takes in an array of objects, each
 
 Sort the meetings by the day on which they happen, Monday-Friday. It does not matter which order meetings come in on a particular day. For example, if there are two meetings on Monday, it does not matter which comes first.
 ------------------------------------------------------------------------------------------------ */
+
 
 function Meeting(dayOfWeek, start, end) {
   this.dayOfWeek = dayOfWeek;
@@ -185,7 +209,17 @@ const meetings = [
 ];
 
 const sortMeetingsByDay = (arr) => {
-  // Solution code here...
+  const sorted = {
+    "Monday": 1,
+    "Tuesday": 2,
+    "Wednesday": 3,
+    "Thursday": 4,
+    "Friday": 5,
+  }
+  arr = arr.sort((a, b)=> {
+    return sorted[a.dayOfWeek] - sorted[b.dayOfWeek];
+  });
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -197,11 +231,34 @@ Sort the meetings in the order that they start. If two meetings start at the sam
 
 You DO NOT need to use your solution to Challenge 9 in completing Challenge 10.
 ------------------------------------------------------------------------------------------------ */
-
 const sortSchedule = (arr) => {
-  // Solution code here...
+  const sorted = {
+    "Monday": 1,
+    "Tuesday": 2,
+    "Wednesday": 3,
+    "Thursday": 4,
+    "Friday": 5,
+  }
+  arr = arr.sort((a, b) => {
+    let fa = sorted[a.dayOfWeek],
+      fb = sorted[b.dayOfWeek];
+    if (fa < fb) {
+      return 1;
+    }
+    if (fa > fb) {
+      return -1;
+    }
+    if (fa == fb) {
+      if (a.start == b.start) {
+        if(a.end-a.start < b.end-b.start){
+          return 1;
+        }
+      }
+    }
+    return 0;
+  }).reverse()
+  return arr;
 };
-
 /* ------------------------------------------------------------------------------------------------
 TESTS
 
