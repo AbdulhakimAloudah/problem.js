@@ -8,6 +8,10 @@ Write a function called addTwo that takes in an array and adds two to every valu
 
 const addTwo = (arr) => {
   // Solution code here...
+  arr.forEach((element, index) => {
+    arr[index] += 2;
+  });
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -18,7 +22,8 @@ Write a function named containsW that takes in a string. This function should us
 ------------------------------------------------------------------------------------------------ */
 
 const containsW = (str) => {
-  // Solution code here...
+  if (str.match(/w/)) return true;
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -34,7 +39,8 @@ For example:
 ------------------------------------------------------------------------------------------------ */
 
 const isNum = (input) => {
-  // Solution code here...
+  if (input.toString().match(/\d/)) return true;
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -45,7 +51,8 @@ Write a function named containsWorld that takes in a string or number of any len
 ------------------------------------------------------------------------------------------------ */
 
 const containsWorld = (input) => {
-  // Solution code here...
+  if (input.match(/world/)) return true;
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -57,7 +64,7 @@ Return an array containing all the matches.
 ------------------------------------------------------------------------------------------------ */
 
 const isCapitalized = (str) => {
-  // Solution code here...
+  return str.match(/\b[A-Z].*?\b/g) || [];
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -66,9 +73,13 @@ CHALLENGE 6
 Write a function named citiesAtoJ that takes in an array of city names and uses a regular expression pattern to return a new array containing any cities that begin with the letters A through J, inclusive.
 ------------------------------------------------------------------------------------------------ */
 const citiesAtoJ = (arr) => {
-  // Solution code here...
+  let output = [];
+  arr.forEach((item) => {
+    let check = item.match(/^[A-Ja-j].*/g);
+    if (check) output.push(...check);
+  });
+  return output;
 };
-
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7 - Stretch Goal
 
@@ -82,7 +93,10 @@ Do not use the vertical bar (pipe) in your pattern.
 ------------------------------------------------------------------------------------------------ */
 
 const matchMonth = (input) => {
-  // Solution code here...
+  if (input.toString().match(/^Oct$|^oct$|^October$|^october$/g)) {
+    return true;
+  }
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -96,8 +110,9 @@ The expected output of "Hello, and have a wonderful day!" is ["and ", "have ", "
 ------------------------------------------------------------------------------------------------ */
 
 const noPunctuation = (str) => {
-  // Solution code here...
+  return str.match(/[A-Za-z0-9]+\s/g);
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 9 - Stretch Goal
@@ -112,7 +127,7 @@ For example, 'Welcome to Code 301!' will return 'W_lc_m_ t_ C_d_ 301!'.
 ------------------------------------------------------------------------------------------------ */
 
 let hangman = (str) => {
-  // Solution code here...
+  return str.replace(/a|A|e|E|i|I|o|O|u|U/g, "_");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -129,7 +144,7 @@ const seashells =
   "She sells seashells by the seashore. The shells she sells are surely seashells. So if she sells shells on the seashore, I'm sure she sells seashore shells.";
 
 const findShells = (str) => {
-  // Solution code here...
+  return str.match(/\w*ells\b/g);
 };
 
 /* ------------------------------------------------------------------------------------------------

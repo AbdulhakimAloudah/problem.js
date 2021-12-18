@@ -2,117 +2,115 @@
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 1 - Review
-
 Write a function named longestString that takes in an array of strings and returns the index position of the longest string. 
 ------------------------------------------------------------------------------------------------ */
 
 const longestString = (arr) => {
-  // Solution code here...
+  let maxLength = Math.max(...arr.map((item) => item.length));
+  return arr.findIndex((element) => element.length == maxLength);
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
-
 Write a function named firstLetters that takes in an array of strings and returns an array containing only the first letter of each string.
-
 For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['t', 'w', 'w', ':']
 ------------------------------------------------------------------------------------------------ */
 
 const firstLetters = (arr) => {
-  // Solution code here...
+  return arr.map((item) => item[0]);
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
-
 Write a function named findHappiness that takes in an array of strings and returns an array containing only the strings from the input array that contain ":)".
-
 For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['this is great :)', ':)))))']
 ------------------------------------------------------------------------------------------------ */
 
 const findHappiness = (arr) => {
-  // Solution code here...
+  return arr.filter((item) => item.match(/:\)/g));
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 4
-
 Write a function named standardizePhoneNumbers that takes in an array of phone number strings in (XXX) XXX-XXXX format and returns an array with the phone number strings in XXXXXXXXXX format.
-
 For example, (123) 456-7890 returns 1234567890
 ------------------------------------------------------------------------------------------------ */
 
 const standardizePhoneNumbers = (arr) => {
-  // Solution code here...
+  let myArr = [];
+  arr.map((item, i) => {
+    myArr[i] = "" + item.match(/\d+/g);
+    myArr[i] = myArr[i].split(",").join("");
+  });
+  return myArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 
-
 Write a function named onlyOddChars that takes in a string and returns only the odd-index characters from that string.
-
 For example, 'abcdefg' returns 'bdf'
 ------------------------------------------------------------------------------------------------ */
 
 const onlyOddChars = (str) => {
-  // Solution code here...
+  return str
+    .split("")
+    .filter((item, i) => {
+      if (i % 2 == 1) {
+        return item;
+      }
+    })
+    .join("");
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6 
-
 Write a function named allHappy that takes in an array of strings and returns a Boolean indicating whether all those strings contain ":)".
 ------------------------------------------------------------------------------------------------ */
 
 const allHappy = (arr) => {
-  // Solution code here...
+  let found = arr.map((item) => (item.match(/:\)/g) ? true : false));
+  return !found.includes(false);
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7 - Stretch Goal
-
 Write a function named findAnything that takes in an array of strings, along with a target string. Return an array containing only those strings from the original array that contain the target string.
 ------------------------------------------------------------------------------------------------ */
 
 const findAnything = (arr, target) => {
-  // Solution code here...
+  return arr.filter((item) => item.includes(target));
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 8 - Stretch Goal
-
 Write a function named findEvery that takes in an array of strings, along with a target string. Return a Boolean based on whether or not every string in the array contains the target string.
 ------------------------------------------------------------------------------------------------ */
 
 const findEvery = (arr, target) => {
-  // Solution code here...
+  return arr.every((item) => item.includes(target));
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 9 - Stretch Goal
-
 We've been testing a new course enrollment system, and we think we have the bugs worked out, but in the meantime, Brook enrolled himself in a bunch of different classes to test if it was working.
-
 Write a function named unenrollBrook that takes in a two-dimensional array, where each array represents one course's roster and is an array of strings of the names of the people in that course.
-
 Return a two-dimensional array with the same roster, but where anyone whose name includes Brook is removed from every course.
-
 For example, [['Brook Testing', 'Actual Person'], ['Human Person', 'Brook again', 'still Brook']] returns [['Actual Person'], ['Human Person']]
 ------------------------------------------------------------------------------------------------ */
 
 const unenrollBrook = (arr) => {
-  // Solution code here...
+  return arr.map((item) => {
+    return item.filter((s) => {
+      if (!s.includes("Brook")) return s;
+    });
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 10 - Stretch Goal
-
 Write a function named sortByDay that takes in an array of strings, each of which represents an event's day and time.
-
 Return a two-dimensional array that organizes those strings based on the day on which they occur. For example, all events on Monday are in the first array, all events on Tuesday are in the second array, etc.
-
 If an event takes place on multiple days (i.e. "Dancing on Mondays and Tuesdays"), it should appear in both arrays.
-
 For example, ['Tuesday', 'Monday', 'Wednesday and Thursday', 'Tuesday 2', 'Thursday'] returns
 [
   ['Monday'],
@@ -136,30 +134,30 @@ const daysOfWeek = [
 ];
 
 const sortByDay = (arr) => {
-  // Solution code here...
+  let myarr = [[], [], [], [], [], [], []];
+  let s = arr.map((item) => {
+    daysOfWeek.map((a, i) => {
+      if (item.includes(a)) myarr[i].push(item);
+    });
+  });
+  return myarr;
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 11 - Stretch Goal
-
 Write a function named characterByIndex that takes in an array of strings and returns an array containing the first character of the first string, the second character of the second string, etc.
-
 For example, ['abcd', 'efgh', 'ijkl', 'mnop'] returns ['a', 'f', 'k', 'p']
 ------------------------------------------------------------------------------------------------ */
 
 const characterByIndex = (arr) => {
-  // Solution code here...
+  return arr.map((s, i) => s[i]);
 };
 
 /* ------------------------------------------------------------------------------------------------
 TESTS
-
 All the code below will verify that your functions are working to solve the challenges.
-
 DO NOT CHANGE any of the below code.
-
 Run your tests from the console: jest challenges-13.test.js
-
 ------------------------------------------------------------------------------------------------ */
 
 describe("Testing challenge 1", () => {
